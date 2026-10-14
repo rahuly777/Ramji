@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vedantix AI Super Engine - Ultimate Omni Edition with Ads</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Vedantix%20AI%20Super%20Engine%22,%22short_name%22:%22Vedantix%20AI%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23030712%22,%22theme_color%22:%22%230284c7%22,%22icons%22:[{%22src%22:%22logo.png%22,%22sizes%22:%22192x192%22,%22type%22:%22image/png%22}]}">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: #030712; color: #f3f4f6; display: flex; flex-direction: column; min-height: 100vh; }
+        header { background: linear-gradient(90deg, #0b0f19 0%, #1e1b4b 50%, #0284c7 100%); padding: 14px 20px; border-bottom: 2px solid #f59e0b; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .brand { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 700; color: #38bdf8; }
+        .logo-box { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
+        .logo-img { width: 38px; height: 38px; border-radius: 6px; object-fit: cover; border: 1px solid #f59e0b; }
+        .tag { background: #d97706; color: #ffffff; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; }
+        
+        .container { display: flex; flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; }
+        
+        /* Sidebar Navigation */
+        aside { width: 230px; background: #0b0f19; border-right: 1px solid #1f2937; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .side-btn { background: #1f2937; color: #f3f4f6; border: none; padding: 10px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .side-btn:hover, .side-btn.active { background: #2563eb; color: #ffffff; }
+
+        /* Main Content Area */
+        .main { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+        .p-bar { background: #0284c715; border: 1px solid #0284c7; color: #38bdf8; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 500; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+        .card { background: #0b0f19; border: 1px solid #1f2937; border-radius: 10px; padding: 12px; }
+        label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 6px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; }
+        input[type="password"], input[type="text"], textarea, .edit-box { width: 100%; background: #030712; border: 1px solid #374151; border-radius: 8px; padding: 10px 12px; color: #f9fafb; font-size: 13px; outline: none; transition: 0.2s; }
+        input:focus, textarea:focus, .edit-box:focus { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
+        .row { display: flex; gap: 8px; }
+        textarea { height: 85px; resize: none; flex: 1; }
+        .btn { background: #2563eb; color: #ffffff; border: none; padding: 10px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.2s; }
+        .btn:hover { background: #1d4ed8; }
+        .btn-sm { padding: 4px 10px; font-size: 11px; }
+        .btn-mic { background: #1f2937; border: 1px solid #374151; width: 45px; font-size: 18px; }
+        .btn-copy { background: #374151; } .btn-copy:hover { background: #4b5563; }
+        .btn-update { background: #d97706; } .btn-update:hover { background: #b45309; }
+        .btn-install { background: #059669; } .btn-install:hover { background: #047857; }
+        .btn-play { background: #7c3aed; } .btn-play:hover { background: #6d28d9; }
+        
+        /* Ad Banner Style */
+        .ad-banner { background: #111827; border: 1px dashed #d97706; padding: 10px; border-radius: 8px; text-align: center; color: #f59e0b; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; }
+
+        .res-container { background: #030712; padding: 14px; border-radius: 8px; border: 1px solid #374151; color: #f9fafb; font-size: 13px; line-height: 1.6; max-height: 400px; overflow-y: auto; white-space: pre-wrap; }
+        .prev-wrap { height: 350px; background: #000000; border-radius: 8px; overflow: hidden; border: 1px solid #374151; display: flex; align-items: center; justify-content: center; }
+        video { width: 100%; height: 100%; object-fit: contain; }
+        iframe { width: 100%; height: 100%; border: none; }
+        .edit-box { font-family: monospace; font-size: 11px; color: #34d399; height: 200px; resize: vertical; }
+        .hidden { display: none; }
+
+        @media(max-width: 768px) {
+            .container { flex-direction: column; }
+            aside { width: 100%; flex-direction: row; overflow-x: auto; padding: 10px; }
+            .side-btn { flex: 0 0 auto; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand">
+            <div class="logo-box">
+                <img id="appLogo" src="logo.png" alt="Vedantix" class="logo-img" onerror="this.src='https://via.placeholder.com/38/0284c7/ffffff?text=V'">
+            </div>
+            <span>Vedantix AI Super Engine</span>
+        </div>
+        <div class="tag">Founder: राम जी यादव</div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside>
+            <button class="side-btn active" onclick="switchTab('aiEngine', this)">⚡ AI Super Engine</button>
+            <button class="side-btn" onclick="switchTab('mediaPlayer', this)">🎬 Built-in Video Player</button>
+            <button class="side-btn" onclick="switchTab('adsManager', this)">💰 AdMob & Ads Setup</button>
+            <button class="side-btn" onclick="installApp()" id="installSidebarBtn" style="display:none;">📱 Install App</button>
+            <button class="side-btn" onclick="playStoreConsoleGuide()">🚀 Play Console Guide</button>
+        </aside>
+
+        <!-- Main Content Panel -->
+        <div class="main">
+            <div class="p-bar">
+                <span>🌐 Universal Omni Intelligence & Monetization Ready</span>
+                <span style="color:#34d399;">● System Active</span>
+            </div>
+
+            <!-- Tab 1: AI Super Engine -->
+            <div id="aiEngineTab" class="tab-content">
+                <div class="card" style="margin-bottom: 12px;">
+                    <label>🔑 Gemini API Key:</label>
+                    <input type="password" id="apiKey" placeholder="Apni Gemini API Key yahan secure daalein..." onchange="localStorage.setItem('v_key', this.value)">
+                </div>
+
+                <div class="card" style="margin-bottom: 12px;">
+                    <label>✨ Universal Command / Heavy App Prompt (With AdMob Integration):</label>
+                    <div class="row">
+                        <textarea id="prompt" placeholder="Jaise: 'Ek Calculator App banao jisme AdMob Banner ad bhi laga ho'..."></textarea>
+                        <button class="btn btn-mic" onclick="startMic()" title="Voice Input">🎤</button>
+                    </div>
+                    <button class="btn" style="width:100%; margin-top:10px;" onclick="runOmniEngine()">⚡ Execute Request / Generate App with Ads</button>
+                </div>
+
+                <div id="chatCard" class="card hidden" style="margin-bottom: 12px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <label style="margin:0;">💬 AI Deep Knowledge Response:</label>
+                        <button class="btn btn-copy btn-sm" onclick="copyTextResult()">📋 Copy Response</button>
+                    </div>
+                    <div id="chatAnswer" class="res-container"></div>
+                </div>
+
+                <div id="appCard" class="hidden" style="display:flex; flex-direction:column; gap:10px;">
+                    <div class="card">
+                        <label>📱 Live App & Game Sandbox Preview:</label>
+                        <div class="prev-wrap" style="background:#ffffff;"><iframe id="appFrame" sandbox="allow-scripts"></iframe></div>
+                    </div>
+                    <div class="card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                            <label style="margin:0;">✏ Code Editor & Generated App Actions:</label>
+                            <div style="display:flex; gap:6px;">
+                                <button class="btn btn-update btn-sm" onclick="updatePreview()">🔄 Update Preview</button>
+                                <button class="btn btn-copy btn-sm" onclick="copyCode()">📋 Copy Code</button>
+                            </div>
+                        </div>
+                        <textarea id="codeBox" class="edit-box"></textarea>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+                            <button class="btn btn-install" onclick="downloadGeneratedApp()">📥 Download App File (.html)</button>
+                            <button class="btn btn-play" onclick="playStoreConsoleGuide()">🚀 Play Console Upload Guide</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Built-in Video Player -->
+            <div id="mediaPlayerTab" class="tab-content hidden">
+                <div class="card" style="display:flex; flex-direction:column; gap:10px;">
+                    <label>🎬 Vedantix Built-in Video Player</label>
+                    <div class="row">
+                        <input type="text" id="videoUrlInput" placeholder="Video URL (jaise .mp4 link) yahan paste karein...">
+                        <button class="btn" onclick="loadCustomVideo()">▶ Play Video</button>
+                    </div>
+                    <div class="prev-wrap">
+                        <video id="customVideoPlayer" controls controlsList="nodownload">
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                            Aapka browser video tag support nahi karta.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Ads & AdMob Manager -->
+            <div id="adsManagerTab" class="tab-content hidden">
+                <div class="card" style="display:flex; flex-direction:column; gap:12px;">
+                    <label>💰 Google AdMob & Monetization Setup</label>
+                    <div style="font-size: 12px; color: #9ca3af; line-height: 1.5;">
+                        Yahan aap apne AdMob Publisher ID aur Ad Unit IDs darj kar sakte hain. Jab aap is engine se koi bhi app generate karenge, toh AI us code mein automatically AdMob banner/interstitial ad slots jod dega!
+                    </div>
+                    <div>
+                        <label>AdMob Publisher ID:</label>
+                        <input type="text" id="admobPubId" placeholder="pub-XXXXXXXXXXXXXXXX" onchange="localStorage.setItem('v_pub', this.value)">
+                    </div>
+                    <div>
+                        <label>AdMob Banner Ad Unit ID:</label>
+                        <input type="text" id="admobBannerId" placeholder="ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX" onchange="localStorage.setItem('v_banner', this.value)">
+                    </div>
+                    <button class="btn btn-install" onclick="saveAdSettings()">💾 Save Ad Settings</button>
+                    
+                    <div class="ad-banner" style="margin-top: 10px;">
+                        <span>📢 [Live AdMob Banner Preview Placeholder - Monetization Active]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installSidebarBtn').style.display = 'flex';
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                alert('App pehle se ready hai. Chrome ke menu (3 dots) par click karke "Install App" select karein!');
+            }
+        }
+
+        function switchTab(tabName, btn) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('aside button').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+
+            if(tabName === 'aiEngine') document.getElementById('aiEngineTab').classList.remove('hidden');
+            else if(tabName === 'mediaPlayer') document.getElementById('mediaPlayerTab').classList.remove('hidden');
+            else if(tabName === 'adsManager') document.getElementById('adsManagerTab').classList.remove('hidden');
+        }
+
+        function loadCustomVideo() {
+            const url = document.getElementById('videoUrlInput').value.trim();
+            if(!url) return alert('Kripya valid video URL enter karein!');
+            const player = document.getElementById('customVideoPlayer');
+            player.src = url;
+            player.play();
+            alert('▶ Video successfully load ho gayi hai!');
+        }
+
+        function saveAdSettings() {
+            alert('✅ AdMob Settings successfully save ho gayi hain! Ab generate hone wale har app mein ads integrate ho jayenge.');
+        }
+
+        window.onload = () => { 
+            if(localStorage.getItem('v_key')) document.getElementById('apiKey').value = localStorage.getItem('v_key');
+            if(localStorage.getItem('v_pub')) document.getElementById('admobPubId').value = localStorage.getItem('v_pub');
+            if(localStorage.getItem('v_banner')) document.getElementById('admobBannerId').value = localStorage.getItem('v_banner');
+        };
+
+        function startMic() {
+            const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if(!Rec) return alert('Voice input support nahi karta yeh browser!');
+            const r = new Rec();
+            r.lang = 'hi-IN';
+            r.start();
+            r.onresult = e => document.getElementById('prompt').value = e.results[0][0].transcript;
+        }
+
+        function copyTextResult() {
+            const txt = document.getElementById('chatAnswer').innerText;
+            if(txt) navigator.clipboard.writeText(txt).then(() => alert('✅ Text copied successfully!'));
+        }
+
+        async function runOmniEngine() {
+            const key = document.getElementById('apiKey').value.trim();
+            const prompt = document.getElementById('prompt').value.trim();
+            const pubId = localStorage.getItem('v_pub') || 'Default_Pub_ID';
+            if(!key || !prompt) return alert('API Key aur Prompt dono bharna anivarya hai!');
+
+            document.getElementById('chatCard').classList.add('hidden');
+            document.getElementById('appCard').classList.add('hidden');
+            document.getElementById('chatAnswer').innerText = "Generating heavy application code with integrated AdMob monetization... Kripya pratiksha karein...";
+            document.getElementById('chatCard').classList.remove('hidden');
+
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: `You are Vedantix AI Super Engine, created by Founder Ram Ji Yadav. You are a universal omni-assistant and heavy software factory. 
+                                User Prompt / Core Query: "${prompt}". 
+                                AdMob Publisher ID linked: "${pubId}".
+                                Instructions: 
+                                1. Write a massive, complete, fully-functional, beautifully styled, self-contained production-grade application with all necessary HTML, embedded CSS, and robust JavaScript logic. 
+                                2. Include a responsive Ad banner or monetization container at the bottom styled nicely for ads. 
+                                3. Do not truncate code; provide thousands of lines if needed. Wrap the entire code strictly inside ```html and ```.`
+                            }]
+                        }],
+                        generationConfig: {
+                            maxOutputTokens: 8192,
+                            temperature: 0.7
+                        }
+                    })
+                });
+
+                const data = await res.json();
+                let text = data.candidates[0].content.parts[0].text.trim();
+
+                if(text.toLowerCase().includes('```html') || text.toLowerCase().includes('<html')) {
+                    let clean = text.replace(/```html/g, '').replace(/```/g, '').trim();
+                    document.getElementById('codeBox').value = clean;
+                    document.getElementById('appFrame').srcdoc = clean;
+                    document.getElementById('chatCard').classList.add('hidden');
+                    document.getElementById('appCard').classList.remove('hidden');
+                } else {
+                    document.getElementById('chatAnswer').innerText = text;
+                    document.getElementById('chatCard').classList.remove('hidden');
+                }
+            } catch(e) {
+                alert('Error: ' + e.message);
+                document.getElementById('chatCard').classList.add('hidden');
+            }
+        }
+
+        function updatePreview() {
+            const editedCode = document.getElementById('codeBox').value;
+            document.getElementById('appFrame').srcdoc = editedCode;
+            alert('🔄 Preview updated successfully!');
+        }
+
+        function copyCode() {
+            const code = document.getElementById('codeBox').value;
+            if(!code) return;
+            navigator.clipboard.writeText(code).then(() => alert('📋 Code copied to clipboard!'));
+        }
+
+        function downloadGeneratedApp() {
+            const code = document.getElementById('codeBox').value;
+            if(!code) return alert('Pehle koi app generate karein!');
+            const b = new Blob([code], {type: 'text/html'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(b);
+            a.download = 'Vedantix_Monetized_App.html';
+            a.click();
+            alert('📥 Monetized App file successfully download ho gayi hai!');
+        }
+
+        function playStoreConsoleGuide() {
+            alert("🚀 GOOGLE PLAY CONSOLE & MONETIZATION GUIDE (BY RAM JI YADAV):\n\n1. Install this engine app directly on your phone.\n2. Set your AdMob IDs in the Ads Manager tab.\n3. Generate apps with integrated ads.\n4. Convert your app
